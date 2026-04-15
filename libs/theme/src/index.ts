@@ -1,3 +1,5 @@
+/// <reference path="./emotion-theme.d.ts" />
+
 // Theme object and types
 export { theme, type Theme } from './emotion-cache/theme';
 export type { Breakpoints, BreakpointDictionary } from './emotion-cache/theme';

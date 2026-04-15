@@ -1,7 +1,7 @@
 import { type FC, type PropsWithChildren, useState } from 'react';
 import createCache from '@emotion/cache';
 import { useServerInsertedHTML } from 'next/navigation';
-import { CacheProvider, ThemeProvider } from '@emotion/react';
+import { CacheProvider, css, Global, ThemeProvider } from '@emotion/react';
 import { theme } from './theme';
 
 const EmotionRegistry: FC<PropsWithChildren> = ({ children }) => {

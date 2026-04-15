@@ -1,3 +1,5 @@
+'use client';
+
 /// <reference path="./emotion-theme.d.ts" />
 
 // Theme object and types

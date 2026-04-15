@@ -19,6 +19,7 @@ const IconDictionaryElement = styled.div(
     display: grid;
     place-items: center;
     row-gap: 1rem;
+    color: ${theme.palette.colors.grey[10]};
   `,
 );
 

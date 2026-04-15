@@ -1,4 +1,5 @@
 import { type FC, type SVGAttributes } from 'react';
+import Icon from './Icon';
 
 const Add: FC<SVGAttributes<SVGElement>> = ({ width = 24, height = 24 }) => (
   <svg
@@ -190,3 +191,5 @@ export const ICONS = {
   search: Search,
   settings: Settings,
 } as const;
+
+export type IconVariants = keyof typeof ICONS;

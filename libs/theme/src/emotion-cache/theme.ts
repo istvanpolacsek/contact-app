@@ -2,6 +2,7 @@ import { Lexend_Deca } from 'next/font/google';
 
 const lexendDeca = Lexend_Deca({
   subsets: ['latin'],
+  weight: ['400'],
 });
 
 export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -22,6 +23,7 @@ export const BREAKPOINT_DICTIONARY: BreakpointDictionary = {
 export const theme = {
   palette: {
     colors: {
+      white: '#ffffff',
       grey: {
         10: '#414141',
         20: '#3C3C3C',

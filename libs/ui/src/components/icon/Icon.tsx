@@ -1,8 +1,8 @@
-import { ICONS } from './constants';
+import { ICONS, type IconVariants } from './constants';
 import { type FC } from 'react';
 
 export interface IconProps {
-  icon: keyof typeof ICONS;
+  icon: IconVariants;
   width?: number;
   height?: number;
 }

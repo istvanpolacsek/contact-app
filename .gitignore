@@ -7,3 +7,7 @@ node_modules/
 !.yarn/versions
 .nx/cache
 .nx/workspace-data
+
+# Next.js
+.next
+out

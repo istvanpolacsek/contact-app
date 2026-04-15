@@ -17,7 +17,8 @@
     "paths": {
       "@contact-app/theme": ["libs/theme/src/index.ts"],
       "@contact-app/ui": ["libs/ui/src/index.ts"],
-      "@contact-app/ui/server": ["libs/ui/src/server.ts"]
+      "@contact-app/ui/server": ["libs/ui/src/server.ts"],
+      "@contact-app/app": ["apps/app/src/app"]
     }
   },
   "exclude": ["node_modules", "tmp"]

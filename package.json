@@ -14,7 +14,10 @@
     "@nx/js": "^22.6.5",
     "@nx/next": "22.6.5",
     "@nx/react": "22.6.5",
+    "@nx/storybook": "22.6.5",
+    "@nx/web": "22.6.5",
     "@nx/workspace": "^22.6.5",
+    "@storybook/nextjs": "^10.1.0",
     "@swc-node/register": "~1.11.1",
     "@swc/cli": "~0.8.0",
     "@swc/core": "~1.15.5",
@@ -34,12 +37,16 @@
     "jsonc-eslint-parser": "^2.1.0",
     "nx": "22.6.5",
     "prettier": "^3.8.3",
+    "storybook": "^10.1.0",
+    "ts-node": "10.9.1",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.58.2"
   },
   "packageManager": "yarn@4.13.0",
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "next": "~16.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

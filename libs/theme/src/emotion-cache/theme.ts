@@ -1,8 +1,13 @@
 import { Lexend_Deca } from 'next/font/google';
+import localFont from 'next/font/local';
 
 const lexendDeca = Lexend_Deca({
   subsets: ['latin'],
   weight: ['400'],
+});
+
+const glysa = localFont({
+  src: './Glysa.otf',
 });
 
 export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -41,6 +46,7 @@ export const theme = {
   typography: {
     fontFamilies: {
       lexendDeca: lexendDeca.style.fontFamily,
+      glysa: glysa.style.fontFamily,
     },
   },
 } as const;

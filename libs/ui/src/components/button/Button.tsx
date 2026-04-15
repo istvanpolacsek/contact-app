@@ -13,13 +13,11 @@ const Button: FC<ButtonProps> = ({
   variant = 'primary',
   children,
   ...rest
-}) => {
-  return (
-    <ButtonStyled $variant={variant}>
-      {icon ? <Icon icon={icon} /> : null}
-      {children}
-    </ButtonStyled>
-  );
-};
+}) => (
+  <ButtonStyled $variant={variant} {...rest}>
+    {icon ? <Icon icon={icon} /> : null}
+    {children}
+  </ButtonStyled>
+);
 
 export default Button;

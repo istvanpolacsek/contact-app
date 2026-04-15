@@ -4573,7 +4573,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react@npm:10.3.5":
+"@storybook/react@npm:10.3.5, @storybook/react@npm:^10.1.0":
   version: 10.3.5
   resolution: "@storybook/react@npm:10.3.5"
   dependencies:
@@ -5322,6 +5322,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 10c0/6bf5337bc447b706bb5b4431d37686aa2ea6d07cfd6f79cc31de80170d6ff9b1c7384a9c0ccbc45b3f512bae9e9f75c2e12109806a15331dc94e8a8db6dbb4ac
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4.17.24":
+  version: 4.17.24
+  resolution: "@types/lodash@npm:4.17.24"
+  checksum: 10c0/b72f60d4daacdad1fa643edb3faba204c02a01eb1ac00a83ff73496a6d236fc55e459c06106e8ced42277dba932d087d8fc090f8de4ef590d3f91e6d6f7ce85a
   languageName: node
   linkType: hard
 
@@ -7582,10 +7589,12 @@ __metadata:
     "@nx/web": "npm:22.6.5"
     "@nx/workspace": "npm:^22.6.5"
     "@storybook/nextjs": "npm:^10.1.0"
+    "@storybook/react": "npm:^10.1.0"
     "@swc-node/register": "npm:~1.11.1"
     "@swc/cli": "npm:~0.8.0"
     "@swc/core": "npm:~1.15.5"
     "@swc/helpers": "npm:~0.5.18"
+    "@types/lodash": "npm:^4.17.24"
     "@types/node": "npm:20.19.9"
     "@types/react": "npm:^19.0.0"
     "@types/react-dom": "npm:^19.0.0"
@@ -7599,6 +7608,7 @@ __metadata:
     eslint-plugin-react: "npm:7.35.0"
     eslint-plugin-react-hooks: "npm:5.0.0"
     jsonc-eslint-parser: "npm:^2.1.0"
+    lodash: "npm:^4.18.1"
     next: "npm:~16.2.3"
     nx: "npm:22.6.5"
     prettier: "npm:^3.8.3"
@@ -11788,7 +11798,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.18.1":
   version: 4.18.1
   resolution: "lodash@npm:4.18.1"
   checksum: 10c0/757228fc68805c59789e82185135cf85f05d0b2d3d54631d680ca79ec21944ec8314d4533639a14b8bcfbd97a517e78960933041a5af17ecb693ec6eecb99a27

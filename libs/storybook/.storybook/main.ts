@@ -17,6 +17,9 @@ const config: StorybookConfig = {
       nextConfigPath: resolve(__dirname, '../../../apps/app/next.config.js'),
     },
   },
+  features: {
+    sidebarOnboardingChecklist: false,
+  },
 };
 
 function getAbsolutePath(value: string) {

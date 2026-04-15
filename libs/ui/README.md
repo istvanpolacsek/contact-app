@@ -2,6 +2,4 @@
 
 This library was generated with [Nx](https://nx.dev).
 
-## Running unit tests
-
-Run `nx test ui` to execute the unit tests via [Jest](https://jestjs.io).
+Component library for the contact-app monorepo. No build step — consumed directly by `apps/app` and `libs/storybook`.

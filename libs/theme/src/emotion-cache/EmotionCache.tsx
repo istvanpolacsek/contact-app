@@ -1,15 +1,14 @@
-import { type FC, type PropsWithChildren, useState } from 'react';
+import { type FC, type PropsWithChildren } from 'react';
 import createCache from '@emotion/cache';
 import { useServerInsertedHTML } from 'next/navigation';
-import { CacheProvider, css, Global, ThemeProvider } from '@emotion/react';
+import { CacheProvider, ThemeProvider } from '@emotion/react';
 import { theme } from './theme';
+import { CssReset } from './css-reset';
+
+const cache = createCache({ key: 'app', prepend: true });
+cache.compat = true;
 
 const EmotionRegistry: FC<PropsWithChildren> = ({ children }) => {
-  const [cache] = useState(() => {
-    const emotionCache = createCache({ key: 'app', prepend: true });
-    emotionCache.compat = true;
-    return emotionCache;
-  });
   const inserted: string[] = [];
 
   const originalInsert = cache.insert;
@@ -38,7 +37,10 @@ const EmotionRegistry: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <CacheProvider value={cache}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssReset theme={theme} />
+        {children}
+      </ThemeProvider>
     </CacheProvider>
   );
 };

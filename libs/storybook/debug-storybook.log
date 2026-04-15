@@ -1,0 +1,17 @@
+[17:31:39.326] [INFO] storybook v10.3.5
+[17:31:39.534] [DEBUG] Getting package.json info for /Users/istvan.polacsek/WebstormProjects/contact-app/package.json...
+[17:31:40.329] [ERROR] [38;2;241;97;97mError: Failed to load static files, no such directory: [36m/Users/istvan.polacsek/WebstormProjects/contact-app/libs/public[39m
+Make sure this directory exists.[39m
+    at parseStaticDir (file:///Users/istvan.polacsek/WebstormProjects/contact-app/node_modules/storybook/dist/_node-chunks/chunk-FIR43JGQ.js:116:11)
+    at file:///Users/istvan.polacsek/WebstormProjects/contact-app/node_modules/storybook/dist/core-server/presets/common-preset.js:1726:48
+    at Array.map (<anonymous>)
+    at Object.favicon (file:///Users/istvan.polacsek/WebstormProjects/contact-app/node_modules/storybook/dist/core-server/presets/common-preset.js:1721:193)
+    at async useStatics (file:///Users/istvan.polacsek/WebstormProjects/contact-app/node_modules/storybook/dist/_node-chunks/chunk-FIR43JGQ.js:72:83)
+    at async Promise.all (index 2)
+    at async storybookDevServer (file:///Users/istvan.polacsek/WebstormProjects/contact-app/node_modules/storybook/dist/core-server/index.js:7490:141)
+    at async buildOrThrow (file:///Users/istvan.polacsek/WebstormProjects/contact-app/node_modules/storybook/dist/core-server/index.js:4508:12)
+    at async buildDevStandalone (file:///Users/istvan.polacsek/WebstormProjects/contact-app/node_modules/storybook/dist/core-server/index.js:8033:41)
+    at async withTelemetry (file:///Users/istvan.polacsek/WebstormProjects/contact-app/node_modules/storybook/dist/_node-chunks/chunk-FIR43JGQ.js:225:12)
+[17:31:40.333] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.
+[17:31:40.352] [WARN] No story files found for the specified pattern: [34m../**/*.mdx[39m

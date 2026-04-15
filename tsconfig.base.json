@@ -1,0 +1,24 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@contact-app/theme": ["libs/theme/src/index.ts"],
+      "@contact-app/ui": ["libs/ui/src/index.ts"],
+      "@contact-app/ui/server": ["libs/ui/src/server.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

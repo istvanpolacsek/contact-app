@@ -1,9 +1,8 @@
-import { type FC, type ReactNode, useMemo } from 'react';
+import { type FC, type ReactNode } from 'react';
 import { type ButtonVariants } from './constants';
 import { type IconVariants, Icon } from '..';
 import { ButtonStyled } from './Button.styles';
 import { type HTMLMotionProps } from 'motion/react';
-import { addTransparency, useTheme } from '@contact-app/theme';
 import { useMotion } from './hooks';
 
 export interface ButtonProps extends HTMLMotionProps<'button'> {

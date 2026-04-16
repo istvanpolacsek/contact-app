@@ -2,11 +2,10 @@ import { type FC } from 'react';
 import {
   ContactListItemActionsStyled,
   ContactListItemImageStyled,
-  ContactListItemNameStyled,
   ContactListItemPhoneStyled,
   ContactListItemStyled,
 } from './ContactListItem.styles';
-import { Image, Button } from '..';
+import { Image, Button, Headline } from '..';
 
 export interface ContactListItemProps {
   name: string;
@@ -25,9 +24,14 @@ const ContactListItem: FC<ContactListItemProps> = ({
       <ContactListItemImageStyled>
         <Image src={profilePictureUrl} alt={name} />
       </ContactListItemImageStyled>
-      <ContactListItemNameStyled>{name}</ContactListItemNameStyled>
+      <Headline level={3}>{name}</Headline>
       {phoneNumber && (
-        <ContactListItemPhoneStyled>{phoneNumber}</ContactListItemPhoneStyled>
+        <ContactListItemPhoneStyled
+          href={`tel:${phoneNumber}`}
+          aria-label={`Call ${name}`}
+        >
+          {phoneNumber}
+        </ContactListItemPhoneStyled>
       )}
       <ContactListItemActionsStyled>
         <Button icon="mute" variant="secondary" />

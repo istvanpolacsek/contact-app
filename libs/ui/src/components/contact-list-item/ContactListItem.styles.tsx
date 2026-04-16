@@ -28,20 +28,14 @@ export const ContactListItemImageStyled = styled.span(
   `,
 );
 
-export const ContactListItemNameStyled = styled.span(
-  ({ theme }) => css`
-    color: ${theme.palette.colors.white};
-    font-size: 1rem;
-    line-height: 1.5rem;
-  `,
-);
-
-export const ContactListItemPhoneStyled = styled.span(
+export const ContactListItemPhoneStyled = styled.a(
   ({ theme }) => css`
     color: ${addTransparency(theme.palette.colors.white, 56)};
     font-size: 0.75rem;
     line-height: 1rem;
     grid-row-start: 2;
+    text-decoration: none;
+    justify-self: start;
   `,
 );
 

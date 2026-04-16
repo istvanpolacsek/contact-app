@@ -14,7 +14,7 @@ export const ButtonStyled = styled(motion.button)<ButtonStyledProps>(
     display: flex;
     column-gap: 8px;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     padding-inline: 0.75rem;
     padding-block: 0.5rem;
     font-family: ${theme.typography.fontFamilies.lexendDeca};

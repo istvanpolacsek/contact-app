@@ -5,6 +5,7 @@ import type { StorybookConfig } from '@storybook/nextjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const glysaFontDir = resolve(__dirname, '../../theme/src/emotion-cache');
+const publicDir = resolve(__dirname, '../../../apps/app/public');
 
 const config: StorybookConfig = {
   // Collect stories from every library under libs/ (single-instance pattern)
@@ -22,6 +23,10 @@ const config: StorybookConfig = {
     {
       from: glysaFontDir,
       to: glysaFontDir.replaceAll('\\', '/'),
+    },
+    {
+      from: publicDir,
+      to: '/',
     },
   ],
   features: {

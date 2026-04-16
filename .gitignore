@@ -15,3 +15,5 @@ out
 storybook-static
 
 .idea
+
+.dist

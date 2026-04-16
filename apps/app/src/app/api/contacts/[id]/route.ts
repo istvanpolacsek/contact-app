@@ -23,12 +23,12 @@ export async function GET(
       );
     }
 
-    const result = await db
+    const [result] = await db
       .select()
       .from(contacts)
       .where(eq(contacts.id, contactId));
 
-    if (result.length === 0) {
+    if (!result) {
       return NextResponse.json<ApiResponse>(
         { success: false, error: 'Contact not found' },
         { status: 404 },
@@ -37,7 +37,7 @@ export async function GET(
 
     return NextResponse.json<ApiResponse<Contact>>({
       success: true,
-      data: result[0] as Contact,
+      data: result as Contact,
     });
   } catch (error) {
     return NextResponse.json<ApiResponse>(
@@ -71,7 +71,7 @@ export async function PUT(
       .omit({ id: true, createdAt: true, updatedAt: true })
       .parse(body);
 
-    const result = await db
+    const [result] = await db
       .update(contacts)
       .set({
         name: parsed.name,
@@ -83,7 +83,7 @@ export async function PUT(
       .where(eq(contacts.id, contactId))
       .returning();
 
-    if (result.length === 0) {
+    if (!result) {
       return NextResponse.json<ApiResponse>(
         { success: false, error: 'Contact not found' },
         { status: 404 },
@@ -92,7 +92,7 @@ export async function PUT(
 
     return NextResponse.json<ApiResponse<Contact>>({
       success: true,
-      data: result[0] as Contact,
+      data: result as Contact,
     });
   } catch (error) {
     const message =
@@ -127,12 +127,12 @@ export async function DELETE(
       );
     }
 
-    const result = await db
+    const [result] = await db
       .delete(contacts)
       .where(eq(contacts.id, contactId))
       .returning({ id: contacts.id });
 
-    if (result.length === 0) {
+    if (!result) {
       return NextResponse.json<ApiResponse>(
         { success: false, error: 'Contact not found' },
         { status: 404 },
@@ -141,7 +141,7 @@ export async function DELETE(
 
     return NextResponse.json<ApiResponse<{ id: number; deleted: boolean }>>({
       success: true,
-      data: { id: result[0].id, deleted: true },
+      data: { id: result.id, deleted: true },
     });
   } catch (error) {
     return NextResponse.json<ApiResponse>(

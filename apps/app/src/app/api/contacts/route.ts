@@ -10,8 +10,11 @@ import { desc } from 'drizzle-orm';
 
 export async function GET() {
   try {
-    const result = await db.select().from(contacts).orderBy(desc(contacts.createdAt));
-    
+    const result = await db
+      .select()
+      .from(contacts)
+      .orderBy(desc(contacts.createdAt));
+
     return NextResponse.json<ApiResponse<Contact[]>>({
       success: true,
       data: result as Contact[],
@@ -36,7 +39,7 @@ export async function POST(request: Request) {
       .omit({ id: true, createdAt: true, updatedAt: true })
       .parse(body);
 
-    const result = await db
+    const [result] = await db
       .insert(contacts)
       .values({
         name: parsed.name,
@@ -49,7 +52,7 @@ export async function POST(request: Request) {
     return NextResponse.json<ApiResponse<Contact>>(
       {
         success: true,
-        data: result[0] as Contact,
+        data: result as Contact,
       },
       { status: 201 },
     );

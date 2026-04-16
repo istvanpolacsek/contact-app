@@ -14,3 +14,4 @@ export { default as EmotionCache } from './emotion-cache/EmotionCache';
 export { default as addHoverEffect } from './add-hover-effect';
 export { default as addStylesForBreakpoints } from './add-styles-for-breakpoints';
 export { default as addTransparency } from './add-transparency';
+export { useTheme } from './use-theme';

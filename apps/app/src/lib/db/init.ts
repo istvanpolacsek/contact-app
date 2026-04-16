@@ -1,4 +1,5 @@
-import { query } from '../db';
+import { db } from './client';
+import { contacts } from './schema';
 
 export async function initializeDatabase(): Promise<{
   success: boolean;
@@ -6,18 +7,9 @@ export async function initializeDatabase(): Promise<{
   timestamp: string;
 }> {
   try {
-    await query(`
-      CREATE TABLE IF NOT EXISTS contacts (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        phone_number VARCHAR(20),
-        email VARCHAR(255),
-        profile_picture_url TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `);
-
+    // Check if the contacts table exists by trying to query it
+    await db.select().from(contacts).limit(1);
+    
     return {
       success: true,
       message: 'Database initialized successfully',

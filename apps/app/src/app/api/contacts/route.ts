@@ -1,34 +1,20 @@
-import { NextResponse, type NextRequest } from 'next/server';
-import { query } from '../../../lib/db';
+import { NextResponse } from 'next/server';
+import { db } from '../../../lib/db/client';
+import { contacts } from '../../../lib/db/schema';
 import {
   contactSchema,
   type Contact,
   type ApiResponse,
 } from '@contact-app/types';
-import { initializeDatabase } from '../../../lib/db/init';
-
-function formatContact(row: any): Contact {
-  return {
-    id: row.id,
-    name: row.name,
-    phoneNumber: row.phone_number,
-    email: row.email,
-    profilePictureUrl: row.profile_picture_url,
-    createdAt: new Date(row.created_at),
-    updatedAt: new Date(row.updated_at),
-  };
-}
+import { desc } from 'drizzle-orm';
 
 export async function GET() {
   try {
-    await initializeDatabase();
-    const result = await query(
-      'SELECT * FROM contacts ORDER BY created_at DESC',
-    );
-    const contacts = result.rows.map(formatContact);
+    const result = await db.select().from(contacts).orderBy(desc(contacts.createdAt));
+    
     return NextResponse.json<ApiResponse<Contact[]>>({
       success: true,
-      data: contacts,
+      data: result as Contact[],
     });
   } catch (error) {
     return NextResponse.json<ApiResponse>(
@@ -42,32 +28,28 @@ export async function GET() {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
-    await initializeDatabase();
     const body = await request.json();
 
     const parsed = contactSchema
       .omit({ id: true, createdAt: true, updatedAt: true })
       .parse(body);
 
-    const result = await query(
-      `INSERT INTO contacts (name, phone_number, email, profile_picture_url)
-       VALUES ($1, $2, $3, $4)
-       RETURNING *`,
-      [
-        parsed.name,
-        parsed.phoneNumber || null,
-        parsed.email || null,
-        parsed.profilePictureUrl || null,
-      ],
-    );
+    const result = await db
+      .insert(contacts)
+      .values({
+        name: parsed.name,
+        phoneNumber: parsed.phoneNumber || null,
+        email: parsed.email || null,
+        profilePictureUrl: parsed.profilePictureUrl || null,
+      })
+      .returning();
 
-    const contact = formatContact(result.rows[0]);
     return NextResponse.json<ApiResponse<Contact>>(
       {
         success: true,
-        data: contact,
+        data: result[0] as Contact,
       },
       { status: 201 },
     );

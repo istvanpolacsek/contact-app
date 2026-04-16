@@ -1,30 +1,18 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { query } from '../../../../lib/db';
+import { db } from '../../../../lib/db/client';
+import { contacts } from '../../../../lib/db/schema';
 import {
   contactSchema,
   type Contact,
   type ApiResponse,
 } from '@contact-app/types';
-import { initializeDatabase } from '../../../../lib/db/init';
-
-function formatContact(row: any): Contact {
-  return {
-    id: row.id,
-    name: row.name,
-    phoneNumber: row.phone_number,
-    email: row.email,
-    profilePictureUrl: row.profile_picture_url,
-    createdAt: new Date(row.created_at),
-    updatedAt: new Date(row.updated_at),
-  };
-}
+import { eq } from 'drizzle-orm';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    await initializeDatabase();
     const { id } = await params;
     const contactId = parseInt(id, 10);
 
@@ -35,21 +23,21 @@ export async function GET(
       );
     }
 
-    const result = await query('SELECT * FROM contacts WHERE id = $1', [
-      contactId,
-    ]);
+    const result = await db
+      .select()
+      .from(contacts)
+      .where(eq(contacts.id, contactId));
 
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       return NextResponse.json<ApiResponse>(
         { success: false, error: 'Contact not found' },
         { status: 404 },
       );
     }
 
-    const contact = formatContact(result.rows[0]);
     return NextResponse.json<ApiResponse<Contact>>({
       success: true,
-      data: contact,
+      data: result[0] as Contact,
     });
   } catch (error) {
     return NextResponse.json<ApiResponse>(
@@ -68,7 +56,6 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    await initializeDatabase();
     const { id } = await params;
     const contactId = parseInt(id, 10);
 
@@ -84,31 +71,28 @@ export async function PUT(
       .omit({ id: true, createdAt: true, updatedAt: true })
       .parse(body);
 
-    const result = await query(
-      `UPDATE contacts 
-       SET name = $1, phone_number = $2, email = $3, profile_picture_url = $4, updated_at = CURRENT_TIMESTAMP
-       WHERE id = $5
-       RETURNING *`,
-      [
-        parsed.name,
-        parsed.phoneNumber || null,
-        parsed.email || null,
-        parsed.profilePictureUrl || null,
-        contactId,
-      ],
-    );
+    const result = await db
+      .update(contacts)
+      .set({
+        name: parsed.name,
+        phoneNumber: parsed.phoneNumber || null,
+        email: parsed.email || null,
+        profilePictureUrl: parsed.profilePictureUrl || null,
+        updatedAt: new Date(),
+      })
+      .where(eq(contacts.id, contactId))
+      .returning();
 
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       return NextResponse.json<ApiResponse>(
         { success: false, error: 'Contact not found' },
         { status: 404 },
       );
     }
 
-    const contact = formatContact(result.rows[0]);
     return NextResponse.json<ApiResponse<Contact>>({
       success: true,
-      data: contact,
+      data: result[0] as Contact,
     });
   } catch (error) {
     const message =
@@ -133,7 +117,6 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    await initializeDatabase();
     const { id } = await params;
     const contactId = parseInt(id, 10);
 
@@ -144,12 +127,12 @@ export async function DELETE(
       );
     }
 
-    const result = await query(
-      'DELETE FROM contacts WHERE id = $1 RETURNING id',
-      [contactId],
-    );
+    const result = await db
+      .delete(contacts)
+      .where(eq(contacts.id, contactId))
+      .returning({ id: contacts.id });
 
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       return NextResponse.json<ApiResponse>(
         { success: false, error: 'Contact not found' },
         { status: 404 },
@@ -158,7 +141,7 @@ export async function DELETE(
 
     return NextResponse.json<ApiResponse<{ id: number; deleted: boolean }>>({
       success: true,
-      data: { id: result.rows[0].id, deleted: true },
+      data: { id: result[0].id, deleted: true },
     });
   } catch (error) {
     return NextResponse.json<ApiResponse>(

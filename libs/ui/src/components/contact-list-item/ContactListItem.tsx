@@ -8,9 +8,9 @@ import {
 import Image from '../image/Image';
 import Headline from '../headline/Headline';
 import Button from '../button/Button';
+import Popover from '../popover/Popover';
 import { type ActionItem } from '..';
 import { type Variants } from 'motion/react';
-import Popover from '../popover/Popover';
 
 export interface ContactListItemProps {
   name: string;

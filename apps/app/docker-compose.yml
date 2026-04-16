@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres-contact
+    image: postgres:15
+    user: root
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_POSTGRES_PASSWORD: postgres
+      HOSTNAME: localhost
+      TZ: Europe/Budapest
+      POSTGRES_USER: contact
+      POSTGRES_DB: contact
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    networks:
+      - contact-app
+
+networks:
+  contact-app:
+    external: true
+    name: contact-app

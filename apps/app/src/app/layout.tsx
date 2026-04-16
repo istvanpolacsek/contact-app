@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import { EmotionCache } from '@contact-app/theme';
+import { fetchAllContacts } from '../lib/actions';
 
 export const metadata = {
   title: 'Welcome to app',
@@ -11,8 +12,7 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const response = await fetch('http://localhost:3000/api/contacts');
-  const { data } = await response.json();
+  const data = await fetchAllContacts();
 
   console.log('---> layout.tsx, line:15', data);
 

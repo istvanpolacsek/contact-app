@@ -1,9 +1,10 @@
 import { type FC, type ReactNode } from 'react';
 import { type ButtonVariants } from './constants';
-import { type IconVariants, Icon } from '..';
+import { type IconVariants } from '..';
 import { ButtonStyled } from './Button.styles';
 import { type HTMLMotionProps } from 'motion/react';
 import { useMotion } from './hooks';
+import Icon from '../icon/Icon';
 
 export interface ButtonProps extends HTMLMotionProps<'button'> {
   variant?: ButtonVariants;

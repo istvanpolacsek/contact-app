@@ -5,7 +5,9 @@ import {
   ContactListItemPhoneStyled,
   ContactListItemStyled,
 } from './ContactListItem.styles';
-import { Image, Button, Headline } from '..';
+import Image from '../image/Image';
+import Headline from '../headline/Headline';
+import Button from '../button/Button';
 
 export interface ContactListItemProps {
   name: string;

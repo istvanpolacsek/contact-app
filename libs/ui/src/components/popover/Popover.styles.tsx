@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { motion } from 'motion/react';
 import { type PopoverPlacement } from './constants';
-import { Button } from '@contact-app/ui';
 import { addTransparency } from '@contact-app/theme';
 
 interface PopoverMenuStyledProps {

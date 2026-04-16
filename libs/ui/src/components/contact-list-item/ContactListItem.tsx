@@ -8,6 +8,9 @@ import {
 import Image from '../image/Image';
 import Headline from '../headline/Headline';
 import Button from '../button/Button';
+import { type ActionItem } from '..';
+import { type Variants } from 'motion/react';
+import Popover from '../popover/Popover';
 
 export interface ContactListItemProps {
   name: string;
@@ -21,8 +24,22 @@ const ContactListItem: FC<ContactListItemProps> = ({
   profilePictureUrl,
   phoneNumber,
 }) => {
+  const actionsVariants: Variants = {
+    rest: { opacity: 0 },
+    hovered: {
+      opacity: 1,
+      transition: { duration: 0.2, ease: 'easeOut' },
+    },
+  };
+
+  const popoverActions: ActionItem[] = [
+    { name: 'Edit', onClick: () => null, icon: 'settings' },
+    { name: 'Favourite', onClick: () => null, icon: 'favourite' },
+    { name: 'Remove', onClick: () => null, icon: 'delete' },
+  ];
+
   return (
-    <ContactListItemStyled>
+    <ContactListItemStyled initial="rest" animate="rest" whileHover="hovered">
       <ContactListItemImageStyled>
         <Image src={profilePictureUrl} alt={name} />
       </ContactListItemImageStyled>
@@ -35,10 +52,10 @@ const ContactListItem: FC<ContactListItemProps> = ({
           {phoneNumber}
         </ContactListItemPhoneStyled>
       )}
-      <ContactListItemActionsStyled>
+      <ContactListItemActionsStyled variants={actionsVariants}>
         <Button icon="mute" variant="secondary" />
         <Button icon="call" variant="secondary" />
-        <Button icon="more" variant="secondary" />
+        <Popover actions={popoverActions} placement="bottom-left" />
       </ContactListItemActionsStyled>
     </ContactListItemStyled>
   );

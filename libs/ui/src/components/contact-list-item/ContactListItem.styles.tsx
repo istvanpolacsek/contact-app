@@ -39,7 +39,7 @@ export const ContactListItemPhoneStyled = styled.a(
   `,
 );
 
-export const ContactListItemActionsStyled = styled.span(
+export const ContactListItemActionsStyled = styled(motion.span)(
   ({ theme }) => css`
     grid-row: span 2;
     display: flex;

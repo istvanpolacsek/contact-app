@@ -17,3 +17,5 @@ storybook-static
 .idea
 
 .dist
+.env.local
+apps/app/db

@@ -9,6 +9,7 @@ export const ContactDialogStyled = styled.form(
     padding-block: 1.5rem;
     background-color: ${theme.palette.colors.grey[100]};
     border-radius: 0.5rem;
+    min-width: 22.75rem;
   `,
 );
 

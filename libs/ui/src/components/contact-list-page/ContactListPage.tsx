@@ -15,6 +15,7 @@ export interface ContactListPageProps {
   profile: ContactInput;
   title: string;
   addNewTitle: string;
+  onDeleteContact: (id: number) => Promise<void>;
 }
 
 const ContactListPage: FC<ContactListPageProps> = ({
@@ -22,6 +23,7 @@ const ContactListPage: FC<ContactListPageProps> = ({
   title,
   addNewTitle,
   profile,
+  onDeleteContact,
 }) => {
   return (
     <ContactListSectionStyled>
@@ -38,7 +40,12 @@ const ContactListPage: FC<ContactListPageProps> = ({
       </ContactListSectionActionStyled>
       <ContactListUlStyled>
         {map(contacts, ({ id, ...rest }) => (
-          <ContactListItem key={id} {...rest} />
+          <ContactListItem
+            key={id}
+            id={id}
+            {...rest}
+            onDeleteContact={onDeleteContact}
+          />
         ))}
       </ContactListUlStyled>
     </ContactListSectionStyled>

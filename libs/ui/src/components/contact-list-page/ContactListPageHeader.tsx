@@ -8,6 +8,7 @@ import Headline from '../headline/Headline';
 import Button from '../button/Button';
 import ProfileActions from '../profile-action/ProfileActions';
 import { type ContactInput } from '@contact-app/types';
+import { useRouter } from 'next/navigation';
 
 export interface ContactListPageHeaderProps extends ContactInput {
   title: string;
@@ -19,6 +20,10 @@ const ContactListPageHeader: FC<ContactListPageHeaderProps> = ({
   addNewTitle,
   ...rest
 }) => {
+  const { push } = useRouter();
+
+  const handleAddNewClick = () => push(`?d=contact`);
+
   return (
     <ContactListPageHeaderStyled>
       <Headline>{title}</Headline>
@@ -27,7 +32,7 @@ const ContactListPageHeader: FC<ContactListPageHeaderProps> = ({
           <Button variant="secondary" icon="settings" />
           <ProfileActions {...rest} />
         </ContactListPageHeaderSecondaryActionsStyled>
-        <Button variant="special" icon="add">
+        <Button variant="special" icon="add" onClick={handleAddNewClick}>
           {addNewTitle}
         </Button>
       </ContactListPageHeaderActionsStyled>

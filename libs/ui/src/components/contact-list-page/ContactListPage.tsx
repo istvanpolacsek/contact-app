@@ -1,14 +1,12 @@
 import {
   ContactListSectionActionStyled,
   ContactListSectionStyled,
-  ContactListUlStyled,
 } from './ContactListPage.styles';
 import { type Contact } from '@contact-app/types';
 import { type FC } from 'react';
-import { map } from 'lodash';
-import ContactListItem from '../contact-list-item/ContactListItem';
 import ContactListPageHeader from './ContactListPageHeader';
 import Button from '../button/Button';
+import ContactListPageUl from './ContactListPageUl';
 
 export interface ContactListPageProps {
   contacts: Contact[];
@@ -24,32 +22,21 @@ const ContactListPage: FC<ContactListPageProps> = ({
   addNewTitle,
   profile,
   onDeleteContact,
-}) => {
-  return (
-    <ContactListSectionStyled>
-      <ContactListSectionActionStyled $justify="end">
-        <Button variant="secondary" icon="backArrow" />
-      </ContactListSectionActionStyled>
-      <ContactListPageHeader
-        title={title}
-        addNewTitle={addNewTitle}
-        {...profile}
-      />
-      <ContactListSectionActionStyled $justify="start">
-        <Button variant="secondary" icon="lightMode" />
-      </ContactListSectionActionStyled>
-      <ContactListUlStyled>
-        {map(contacts, ({ id, ...rest }) => (
-          <ContactListItem
-            key={id}
-            id={id}
-            {...rest}
-            onDeleteContact={onDeleteContact}
-          />
-        ))}
-      </ContactListUlStyled>
-    </ContactListSectionStyled>
-  );
-};
+}) => (
+  <ContactListSectionStyled>
+    <ContactListSectionActionStyled $justify="end">
+      <Button variant="secondary" icon="backArrow" />
+    </ContactListSectionActionStyled>
+    <ContactListPageHeader
+      title={title}
+      addNewTitle={addNewTitle}
+      {...profile}
+    />
+    <ContactListSectionActionStyled $justify="start">
+      <Button variant="secondary" icon="lightMode" />
+    </ContactListSectionActionStyled>
+    <ContactListPageUl contacts={contacts} onDeleteContact={onDeleteContact} />
+  </ContactListSectionStyled>
+);
 
 export default ContactListPage;

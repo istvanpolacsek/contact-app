@@ -1,6 +1,5 @@
 import { type PropsWithChildren } from 'react';
 import { EmotionCache } from '@contact-app/theme';
-import { fetchAllContacts } from '../lib/actions';
 
 export const metadata = {
   title: 'Contact app',

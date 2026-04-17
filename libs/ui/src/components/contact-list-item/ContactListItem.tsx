@@ -11,15 +11,9 @@ import Button from '../button/Button';
 import Popover from '../popover/Popover';
 import { type ActionItem } from '..';
 import { type Variants } from 'motion/react';
+import { type ContactInput } from '@contact-app/types';
 
-export interface ContactListItemProps {
-  name: string;
-  phoneNumber?: string;
-  email?: string;
-  profilePictureUrl?: string;
-}
-
-const ContactListItem: FC<ContactListItemProps> = ({
+const ContactListItem: FC<ContactInput> = ({
   name,
   profilePictureUrl,
   phoneNumber,

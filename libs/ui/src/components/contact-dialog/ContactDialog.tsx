@@ -21,6 +21,7 @@ export interface ContactDialogProps {
   phoneNumber?: string;
   email?: string;
   profilePictureUrl?: string;
+  isDefaultUser?: boolean;
   onSubmit: (formData: FormData) => Promise<void>;
 }
 
@@ -29,6 +30,9 @@ const ContactDialog: FC<ContactDialogProps> = ({
   profilePictureUrl,
   onSubmit,
   name = '',
+  email,
+  phoneNumber,
+  isDefaultUser = false,
 }) => {
   const formRef = useRef<HTMLFormElement>(null);
   const profilePictureInputRef = useRef<HTMLInputElement>(null);
@@ -95,15 +99,16 @@ const ContactDialog: FC<ContactDialogProps> = ({
         name="phoneNumber"
         type="tel"
         placeholder="+01 234 5678"
-        defaultValue=""
+        defaultValue={phoneNumber}
       />
       <Input
         id="email"
         name="email"
         type="email"
         placeholder="jamie@wright.not"
-        defaultValue=""
+        defaultValue={email}
       />
+      <input hidden name="isDefault" defaultValue={`${isDefaultUser}`} />
       <ContactDialogActionsStyled>
         <Button type="button" variant="secondary" onClick={handleCloseDialog}>
           Cancel

@@ -7,10 +7,10 @@ import {
 import Headline from '../headline/Headline';
 import Button from '../button/Button';
 import ProfileActions from '../profile-action/ProfileActions';
-import { type ContactInput } from '@contact-app/types';
+import { type Contact } from '@contact-app/types';
 import { useRouter } from 'next/navigation';
 
-export interface ContactListPageHeaderProps extends ContactInput {
+export interface ContactListPageHeaderProps extends Contact {
   title: string;
   addNewTitle: string;
 }

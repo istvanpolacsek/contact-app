@@ -1,4 +1,11 @@
-import { pgTable, serial, varchar, text, timestamp } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  serial,
+  varchar,
+  text,
+  timestamp,
+  boolean,
+} from 'drizzle-orm/pg-core';
 
 export const contacts = pgTable('contacts', {
   id: serial('id').primaryKey(),
@@ -6,6 +13,7 @@ export const contacts = pgTable('contacts', {
   phoneNumber: varchar('phone_number', { length: 20 }),
   email: varchar('email', { length: 255 }),
   profilePictureUrl: text('profile_picture_url'),
+  isDefault: boolean('is_default'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

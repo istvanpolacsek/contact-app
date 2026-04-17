@@ -29,6 +29,7 @@ export const theme = {
   palette: {
     colors: {
       white: '#ffffff',
+      black: '#000000',
       grey: {
         10: '#414141',
         20: '#3C3C3C',

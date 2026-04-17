@@ -11,13 +11,21 @@ import Button from '../button/Button';
 import Popover from '../popover/Popover';
 import { type ActionItem } from '..';
 import { type Variants } from 'motion/react';
-import { type ContactInput } from '@contact-app/types';
+import { type Contact } from '@contact-app/types';
+import { useRouter } from 'next/navigation';
 
-const ContactListItem: FC<ContactInput> = ({
+export interface ContactListItemProps extends Contact {
+  onDeleteContact: (id: number) => void;
+}
+
+const ContactListItem: FC<ContactListItemProps> = ({
+  id,
   name,
   profilePictureUrl,
   phoneNumber,
+  onDeleteContact,
 }) => {
+  const { push } = useRouter();
   const actionsVariants: Variants = {
     rest: { opacity: 0 },
     hovered: {
@@ -26,10 +34,12 @@ const ContactListItem: FC<ContactInput> = ({
     },
   };
 
+  const handleEdit = () => push(`?d=contact&id=${id}`);
+
   const popoverActions: ActionItem[] = [
-    { name: 'Edit', onClick: () => null, icon: 'settings' },
+    { name: 'Edit', onClick: handleEdit, icon: 'settings' },
     { name: 'Favourite', onClick: () => null, icon: 'favourite' },
-    { name: 'Remove', onClick: () => null, icon: 'delete' },
+    { name: 'Remove', onClick: () => onDeleteContact(id), icon: 'delete' },
   ];
 
   return (

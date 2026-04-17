@@ -3,7 +3,7 @@ import {
   ContactListSectionStyled,
   ContactListUlStyled,
 } from './ContactListPage.styles';
-import { type Contact, type ContactInput } from '@contact-app/types';
+import { type Contact } from '@contact-app/types';
 import { type FC } from 'react';
 import { map } from 'lodash';
 import ContactListItem from '../contact-list-item/ContactListItem';
@@ -12,7 +12,7 @@ import Button from '../button/Button';
 
 export interface ContactListPageProps {
   contacts: Contact[];
-  profile: ContactInput;
+  profile: Contact;
   title: string;
   addNewTitle: string;
   onDeleteContact: (id: number) => Promise<void>;

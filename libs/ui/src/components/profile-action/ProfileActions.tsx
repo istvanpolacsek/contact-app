@@ -4,10 +4,14 @@ import Button from '../button/Button';
 import { ProfileActionsStyled } from './ProfileActions.styles';
 import Image from '../image/Image';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from '../..';
 
 const ProfileActions: FC<Contact> = ({ profilePictureUrl, name, id }) => {
+  const t = useTranslations();
   const { push } = useRouter();
 
+  const ctaPrefix = t[id ? 'edit' : 'add'];
+  const ctaTitle = `${ctaPrefix} ${t['defaultContact']}`;
   const searchParams = new URLSearchParams({
     d: 'contact',
     default: 'true',
@@ -17,7 +21,7 @@ const ProfileActions: FC<Contact> = ({ profilePictureUrl, name, id }) => {
   const handleClick = () => push(`?${searchParams.toString()}`);
 
   return (
-    <Button variant="secondary" onClick={handleClick}>
+    <Button variant="secondary" onClick={handleClick} title={ctaTitle}>
       <ProfileActionsStyled>
         <Image src={profilePictureUrl} alt={name} />
       </ProfileActionsStyled>

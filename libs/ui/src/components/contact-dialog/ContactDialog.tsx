@@ -12,9 +12,9 @@ import Headline from '../headline/Headline';
 import Input from '../input/Input';
 import Button from '../button/Button';
 import Image from '../image/Image';
-import { startCase } from 'lodash';
 import { type IconVariants } from '..';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from '../..';
 
 export interface ContactDialogProps {
   mode: 'add' | 'edit';
@@ -35,14 +35,16 @@ const ContactDialog: FC<ContactDialogProps> = ({
   phoneNumber,
   isDefaultUser = false,
 }) => {
+  const t = useTranslations();
   const formRef = useRef<HTMLFormElement>(null);
   const profilePictureInputRef = useRef<HTMLInputElement>(null);
   const compressedFileRef = useRef<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(profilePictureUrl);
   const [isCompressing, setIsCompressing] = useState(false);
   const { push } = useRouter();
-  const title = startCase(`${mode} contact`);
-  const buttonTitle = previewUrl ? 'Change picture' : 'Add picture';
+  const title = `${t[mode]} ${t[isDefaultUser ? 'defaultContact' : 'contact']}`;
+  const buttonTitle = t[previewUrl ? 'editPicture' : 'addPicture'];
+  const dynamicButtonTitle = isCompressing ? t['processing'] : buttonTitle;
   const buttonIcon: IconVariants = previewUrl ? 'change' : 'add';
 
   const handleProfilePictureButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
@@ -124,7 +126,7 @@ const ContactDialog: FC<ContactDialogProps> = ({
           onChange={handleProfilePictureChange}
         />
         <ContactDialogPhotoWrapperStyled>
-          <Image src={previewUrl} alt="Profile picture preview" />
+          <Image src={previewUrl} alt={t['profilePicture']} />
         </ContactDialogPhotoWrapperStyled>
         <ContactDialogPhotoActionsStyled>
           <Button
@@ -133,7 +135,7 @@ const ContactDialog: FC<ContactDialogProps> = ({
             onClick={handleProfilePictureButtonClick}
             disabled={isCompressing}
           >
-            {isCompressing ? 'Processing...' : buttonTitle}
+            {dynamicButtonTitle}
           </Button>
           {!!previewUrl && (
             <Button
@@ -142,15 +144,24 @@ const ContactDialog: FC<ContactDialogProps> = ({
               aria-label="Remove picture"
               onClick={handleDeletePicture}
               disabled={isCompressing}
+              title={t['deletePicture']}
             />
           )}
         </ContactDialogPhotoActionsStyled>
       </ContactDialogPhotoEditStyled>
-      <Input id="name" name="name" type="string" placeholder="Jamie Wright" defaultValue={name} />
+      <Input
+        id="name"
+        name="name"
+        type="string"
+        label={t['name']}
+        placeholder="Jamie Wright"
+        defaultValue={name}
+      />
       <Input
         id="phoneNumber"
         name="phoneNumber"
         type="tel"
+        label={t['phoneNumber']}
         placeholder="+01 234 5678"
         defaultValue={phoneNumber}
       />
@@ -158,15 +169,16 @@ const ContactDialog: FC<ContactDialogProps> = ({
         id="email"
         name="email"
         type="email"
+        label={t['email']}
         placeholder="jamie@wright.not"
         defaultValue={email}
       />
       <input hidden name="isDefault" defaultValue={`${isDefaultUser}`} />
       <ContactDialogActionsStyled>
         <Button type="button" variant="secondary" onClick={handleCloseDialog}>
-          Cancel
+          {t['cancel']}
         </Button>
-        <Button type="submit">Done</Button>
+        <Button type="submit">{t['done']}</Button>
       </ContactDialogActionsStyled>
     </ContactDialogStyled>
   );

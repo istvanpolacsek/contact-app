@@ -1,6 +1,5 @@
 //@ts-check
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
 
 /**
@@ -13,6 +12,23 @@ const nextConfig = {
   compiler: {
     // Enable SWC-based Emotion transform (covers libs/ui and any imported styled components)
     emotion: true,
+  },
+  images: {
+    dangerouslyAllowLocalIP: true,
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '9000',
+        pathname: '/contact-app-media/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '9000',
+        pathname: '/contact-app-media/**',
+      },
+    ],
   },
 };
 

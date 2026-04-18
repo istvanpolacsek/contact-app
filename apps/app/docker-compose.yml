@@ -5,14 +5,13 @@ services:
     image: postgres:15
     user: root
     ports:
-      - '5432:5432'
+      - '${DB_PPORT}:5432'
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_POSTGRES_PASSWORD: postgres
-      HOSTNAME: localhost
-      TZ: Europe/Budapest
-      POSTGRES_USER: contact
-      POSTGRES_DB: contact
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_DATABASE}
+      HOSTNAME: ${DB_HOSTNAME}
+      TZ: ${DB_TZ}
       PGDATA: /var/lib/postgresql/data
     volumes:
       - ./db:/var/lib/postgresql/data

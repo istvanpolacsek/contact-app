@@ -18,6 +18,33 @@ services:
     networks:
       - contact-app
 
+  minio:
+    container_name: minio-contact
+    image: minio/minio:latest
+    ports:
+      - '${MINIO_API_PORT}:9000'
+      - '${MINIO_CONSOLE_PORT}:9001'
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY}
+    volumes:
+      - ./minio/data:/data
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        minio server /data --console-address :9001 &
+        sleep 5 &&
+        mc alias set local http://localhost:9000 ${S3_ACCESS_KEY} ${S3_SECRET_KEY} --api S3v4 &&
+        mc mb local/${S3_BUCKET} --ignore-existing &&
+        mc anonymous set download local/${S3_BUCKET} &&
+        echo 'MinIO bucket initialized' &&
+        wait
+    networks:
+      - contact-app
+    depends_on:
+      - postgres
+
 networks:
   contact-app:
     external: true

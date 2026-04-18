@@ -18,4 +18,5 @@ storybook-static
 
 .dist
 apps/app/db
+apps/app/minio
 .env*

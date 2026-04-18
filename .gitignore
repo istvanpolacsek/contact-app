@@ -16,7 +16,7 @@ storybook-static
 
 .idea
 
-.dist
+dist
 apps/app/db
 apps/app/minio
 .env*

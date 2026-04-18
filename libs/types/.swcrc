@@ -1,0 +1,23 @@
+{
+  "jsc": {
+    "target": "es2017",
+    "parser": {
+      "syntax": "typescript",
+      "dynamicImport": true
+    },
+    "externalHelpers": true,
+    "loose": true
+  },
+  "module": {
+    "type": "commonjs"
+  },
+  "sourceMaps": true,
+  "exclude": [
+    "jest.config.[ct]s",
+    ".*\\.spec.tsx?$",
+    ".*\\.test.tsx?$",
+    "./src/jest-setup.ts$",
+    "./**/jest-setup.ts$",
+    ".*.js$"
+  ]
+}

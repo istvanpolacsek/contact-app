@@ -19,16 +19,12 @@ const Image: FC<ImageProps> = ({ src, alt, aspectRatio = '1/1' }) => {
           src={src}
           alt={alt}
           fill
+          style={{ objectFit: 'cover' }}
           onError={() => setError(true)}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       ) : (
-        <ImgElementStyled
-          src="/placeholder.png"
-          alt={alt}
-          width={256}
-          height={256}
-        />
+        <ImgElementStyled src="/placeholder.png" alt={alt} width={256} height={256} />
       )}
     </ImageContainerStyled>
   );

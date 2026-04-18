@@ -10,8 +10,9 @@ const s3Client = new S3Client({
   forcePathStyle: true,
 });
 
-export async function uploadPhotoToS3(buffer: Buffer, fileName: string): Promise<string> {
+export async function uploadPhotoToS3(buffer: Buffer): Promise<string> {
   const bucket = process.env.S3_BUCKET || 'contact-app-media';
+  const fileName = `photo-${Date.now()}-${Math.random().toString(36).substring(7)}.jpg`;
 
   try {
     const command = new PutObjectCommand({
@@ -23,10 +24,7 @@ export async function uploadPhotoToS3(buffer: Buffer, fileName: string): Promise
 
     await s3Client.send(command);
 
-    const endpoint =
-      process.env.S3_ENDPOINT_PUBLIC || process.env.S3_ENDPOINT || 'http://localhost:9000';
-
-    return `${endpoint}/${bucket}/${fileName}`;
+    return fileName;
   } catch (error) {
     console.error('Failed to upload photo to S3:', error);
     throw new Error('Failed to upload photo');

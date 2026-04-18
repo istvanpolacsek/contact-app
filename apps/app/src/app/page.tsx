@@ -36,7 +36,7 @@ export default async function Index({ searchParams }: IndexProps) {
       const { success, data, error } = await uploadContactPhoto(Buffer.from(buffer));
 
       if (success && data) {
-        formData.set('profilePictureUrl', data.photoUrl);
+        formData.set('profilePictureUrl', data.photoSlug);
       } else {
         console.error('Photo upload failed:', error);
       }

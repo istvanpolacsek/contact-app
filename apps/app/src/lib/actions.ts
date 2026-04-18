@@ -121,12 +121,11 @@ export async function deleteContact(id: number): Promise<{
 // UPLOAD operation
 export async function uploadContactPhoto(
   buffer: Buffer,
-): Promise<ApiResponse<{ photoUrl: string }>> {
+): Promise<ApiResponse<{ photoSlug: string }>> {
   try {
-    const fileName = `photo-${Date.now()}-${Math.random().toString(36).substring(7)}.jpg`;
-    const photoUrl = await uploadPhotoToS3(buffer, fileName);
+    const photoSlug = await uploadPhotoToS3(buffer);
 
-    return { success: true, data: { photoUrl } };
+    return { success: true, data: { photoSlug } };
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Failed to upload photo';
     console.error('Upload photo error:', error);

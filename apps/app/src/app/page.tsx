@@ -64,8 +64,6 @@ export default async function Index({ searchParams }: IndexProps) {
     <>
       <ContactListPage
         contacts={contacts}
-        addNewTitle="Add contact"
-        title="Contact App"
         onDeleteContact={deleteHandler}
         {...(defaultContact ? { profile: defaultContact } : { profile: { name: '' } as Contact })}
       />

@@ -14,7 +14,7 @@ import Button from '../button/Button';
 import Image from '../image/Image';
 import { type IconVariants } from '..';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from '../..';
+import { useClickOutside, useTranslations } from '../..';
 
 export interface ContactDialogProps {
   mode: 'add' | 'edit';
@@ -112,6 +112,8 @@ const ContactDialog: FC<ContactDialogProps> = ({
     await onSubmit(formData);
     handleCloseDialog();
   };
+
+  useClickOutside(formRef, handleCloseDialog);
 
   return (
     <ContactDialogStyled ref={formRef} action={handleSubmit}>

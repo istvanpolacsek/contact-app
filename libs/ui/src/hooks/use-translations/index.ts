@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { TranslationsContext } from '../..';
+import { TranslationsContext } from '../../providers';
 
 function useTranslations() {
   return useContext(TranslationsContext);

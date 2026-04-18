@@ -9,7 +9,7 @@ import Button from '../button/Button';
 import ProfileActions from '../profile-action/ProfileActions';
 import { type Contact } from '@contact-app/types';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from '../..';
+import { useTranslations } from '../../hooks';
 
 const ContactListPageHeader: FC<Contact> = (props) => {
   const { push } = useRouter();

@@ -4,7 +4,7 @@ import { type FC } from 'react';
 import ContactListPageHeader from './ContactListPageHeader';
 import Button from '../button/Button';
 import ContactListPageUl from './ContactListPageUl';
-import { useTranslations } from '../..';
+import { useTranslations } from '../../hooks';
 
 export interface ContactListPageProps {
   contacts: Contact[];

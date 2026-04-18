@@ -4,7 +4,7 @@ import Button from '../button/Button';
 import { ProfileActionsStyled } from './ProfileActions.styles';
 import Image from '../image/Image';
 import { useRouter } from 'next/navigation';
-import { useTranslations } from '../..';
+import { useTranslations } from '../../hooks';
 
 const ProfileActions: FC<Contact> = ({ profilePictureUrl, name, id }) => {
   const t = useTranslations();

@@ -14,7 +14,7 @@ import Button from '../button/Button';
 import Image from '../image/Image';
 import { type IconVariants } from '..';
 import { useRouter } from 'next/navigation';
-import { useClickOutside, useTranslations } from '../..';
+import { useClickOutside, useTranslations } from '../../hooks';
 
 export interface ContactDialogProps {
   mode: 'add' | 'edit';

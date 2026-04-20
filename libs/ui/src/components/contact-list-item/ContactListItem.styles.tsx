@@ -6,10 +6,7 @@ import { addTransparency } from '@contact-app/theme';
 export const ContactListItemStyled = styled(motion.li)(
   ({ theme }) => css`
     display: grid;
-    grid-template-columns: minmax(0, 2.5rem) minmax(0, 1fr) minmax(
-        0,
-        min-content
-      );
+    grid-template-columns: minmax(0, 2.5rem) minmax(0, 1fr) minmax(0, min-content);
     grid-template-rows: repeat(2, minmax(0, min-content));
     grid-auto-flow: column dense;
     column-gap: 1rem;
@@ -44,5 +41,10 @@ export const ContactListItemActionsStyled = styled(motion.span)(
     grid-row: span 2;
     display: flex;
     column-gap: 0.5rem;
+    align-items: center;
+
+    @media (pointer: coarse) {
+      opacity: 1 !important;
+    }
   `,
 );

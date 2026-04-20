@@ -17,6 +17,7 @@ export interface PopoverProps {
   placement?: PopoverPlacement;
   triggerIcon?: IconVariants;
   triggerVariant?: ButtonProps['variant'];
+  title?: string;
 }
 
 const Popover: FC<PopoverProps> = ({
@@ -24,6 +25,7 @@ const Popover: FC<PopoverProps> = ({
   placement = 'bottom-right',
   triggerIcon = 'more',
   triggerVariant = 'secondary',
+  title,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -64,9 +66,7 @@ const Popover: FC<PopoverProps> = ({
           break;
         case 'ArrowUp':
           event.preventDefault();
-          setFocusedIndex((prev) =>
-            prev === 0 ? actions.length - 1 : prev - 1,
-          );
+          setFocusedIndex((prev) => (prev === 0 ? actions.length - 1 : prev - 1));
           break;
         case 'Enter':
         case ' ':
@@ -124,6 +124,7 @@ const Popover: FC<PopoverProps> = ({
         aria-expanded={isOpen}
         aria-controls="popover-menu"
         onClick={handleTriggerClick}
+        title={title}
       />
       {isOpen && (
         <PopoverMenuStyled
@@ -137,10 +138,7 @@ const Popover: FC<PopoverProps> = ({
           transition={{ duration: 0.2 }}
         >
           {actions.map(({ name, icon, onClick }, i) => (
-            <PopoverMenuItemStyled
-              key={`${name}-${i}`}
-              aria-selected={focusedIndex === i}
-            >
+            <PopoverMenuItemStyled key={`${name}-${i}`} aria-selected={focusedIndex === i}>
               <PopoverMenuItemButtonStyled
                 ref={(el) => {
                   menuItemRefs.current[i] = el;

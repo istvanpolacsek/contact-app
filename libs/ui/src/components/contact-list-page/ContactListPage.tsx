@@ -22,11 +22,11 @@ const ContactListPage: FC<ContactListPageProps> = ({
 
   return (
     <ContactListSectionStyled>
-      <ContactListSectionActionStyled $justify="end">
+      <ContactListSectionActionStyled $justify="end" $justifyMobile="start">
         <Button variant="secondary" icon="backArrow" title={t['goBack']} />
       </ContactListSectionActionStyled>
       <ContactListPageHeader {...profile} />
-      <ContactListSectionActionStyled $justify="start">
+      <ContactListSectionActionStyled $justify="start" $justifyMobile="end">
         <Button variant="secondary" icon="lightMode" title={t['lightMode']} />
       </ContactListSectionActionStyled>
       <ContactListPageUl contacts={contacts} onDeleteContact={onDeleteContact} />

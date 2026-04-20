@@ -22,6 +22,9 @@ const translations = {
   name: 'Name',
   phoneNumber: 'Phone Number',
   email: 'Email',
+  mute: 'Mute',
+  call: 'Call',
+  moreActions: 'More Actions',
 };
 
 export const metadata = {

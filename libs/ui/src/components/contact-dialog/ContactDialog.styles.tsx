@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { addStylesForBreakpoints } from '@contact-app/theme';
 
 export const ContactDialogStyled = styled.form(
   ({ theme }) => css`
@@ -10,6 +11,14 @@ export const ContactDialogStyled = styled.form(
     background-color: ${theme.palette.colors.grey[100]};
     border-radius: 0.5rem;
     min-width: 22.75rem;
+
+    ${addStylesForBreakpoints(
+      css`
+        min-width: unset;
+      `,
+      'sm',
+      'xs',
+    )}
   `,
 );
 

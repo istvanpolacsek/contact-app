@@ -13,6 +13,7 @@ import { type ActionItem } from '..';
 import { type Variants } from 'motion/react';
 import { type Contact } from '@contact-app/types';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from '../../hooks';
 
 export interface ContactListItemProps extends Contact {
   onDeleteContact: (id: number) => void;
@@ -25,6 +26,7 @@ const ContactListItem: FC<ContactListItemProps> = ({
   phoneNumber,
   onDeleteContact,
 }) => {
+  const t = useTranslations();
   const { push } = useRouter();
   const actionsVariants: Variants = {
     rest: { opacity: 0 },
@@ -49,17 +51,14 @@ const ContactListItem: FC<ContactListItemProps> = ({
       </ContactListItemImageStyled>
       <Headline level={3}>{name}</Headline>
       {phoneNumber && (
-        <ContactListItemPhoneStyled
-          href={`tel:${phoneNumber}`}
-          aria-label={`Call ${name}`}
-        >
+        <ContactListItemPhoneStyled href={`tel:${phoneNumber}`} aria-label={`Call ${name}`}>
           {phoneNumber}
         </ContactListItemPhoneStyled>
       )}
       <ContactListItemActionsStyled variants={actionsVariants}>
-        <Button icon="mute" variant="secondary" />
-        <Button icon="call" variant="secondary" />
-        <Popover actions={popoverActions} placement="bottom-left" />
+        <Button title={t['mute']} icon="mute" variant="secondary" />
+        <Button title={t['call']} icon="call" variant="secondary" />
+        <Popover title={t['moreActions']} actions={popoverActions} placement="bottom-right" />
       </ContactListItemActionsStyled>
     </ContactListItemStyled>
   );

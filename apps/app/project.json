@@ -8,10 +8,10 @@
   "targets": {
     "build": {
       "executor": "@nx/next:build",
-      "outputs": ["{projectRoot}/build"],
+      "outputs": ["{projectRoot}/dist"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "apps/app/dist"
+        "outputPath": "{projectRoot}/dist"
       }
     }
   }

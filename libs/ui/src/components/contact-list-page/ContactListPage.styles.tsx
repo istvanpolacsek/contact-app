@@ -13,6 +13,13 @@ export const ContactListSectionStyled = styled.section(
 
     ${addStylesForBreakpoints(
       css`
+        grid-template-columns: minmax(0, 1fr) min(75vw, 40rem) minmax(0, 1fr);
+      `,
+      'lg',
+    )}
+
+    ${addStylesForBreakpoints(
+      css`
         grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-template-rows: repeat(2, minmax(0, min-content)) minmax(0, 1fr);
       `,
@@ -131,9 +138,15 @@ export const ContactListPageHeaderActionsStyled = styled.div(
 
     ${addStylesForBreakpoints(
       css`
-        justify-content: space-between;
+        justify-content: end;
       `,
       'md',
+    )}
+
+    ${addStylesForBreakpoints(
+      css`
+        justify-content: space-between;
+      `,
       'sm',
       'xs',
     )}

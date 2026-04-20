@@ -158,6 +158,8 @@ const ContactDialog: FC<ContactDialogProps> = ({
         label={t['name']}
         placeholder="Jamie Wright"
         defaultValue={name}
+        minLength={3}
+        required
       />
       <Input
         id="phoneNumber"

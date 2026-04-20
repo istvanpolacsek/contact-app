@@ -13,6 +13,7 @@ const Image: FC<ImageProps> = ({ src, alt, aspectRatio = '1/1' }) => {
 
   const imageUrl = convertToImageUrl(src);
   const isValidUrl = getIsValidUrl(imageUrl);
+  const isRemoteS3 = isRemoteS3Image(imageUrl);
 
   return (
     <ImageContainerStyled $aspectRatio={aspectRatio}>
@@ -24,6 +25,7 @@ const Image: FC<ImageProps> = ({ src, alt, aspectRatio = '1/1' }) => {
           style={{ objectFit: 'cover' }}
           onError={() => setError(true)}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          unoptimized={isRemoteS3}
         />
       ) : (
         <ImgElementStyled src="/placeholder.png" alt={alt} width={256} height={256} />
@@ -60,4 +62,11 @@ function convertToImageUrl(src?: string): string | undefined {
   const bucket = process.env.NEXT_PUBLIC_S3_BUCKET || 'contact-app-media';
 
   return `${endpoint}/${bucket}/${src}`;
+}
+
+function isRemoteS3Image(imageUrl?: string): boolean {
+  if (!imageUrl) return false;
+
+  const endpoint = process.env.NEXT_PUBLIC_S3_ENDPOINT_PUBLIC || 'http://localhost:9000';
+  return imageUrl.startsWith(endpoint);
 }

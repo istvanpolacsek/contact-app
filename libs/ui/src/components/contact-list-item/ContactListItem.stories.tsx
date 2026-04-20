@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import ContactListItem from './ContactListItem';
+import ContactListItem, { type ContactListItemProps } from './ContactListItem';
+import { fn } from 'storybook/test';
 
 const meta = {
   component: ContactListItem,
@@ -15,5 +16,6 @@ export const Default: Story = {
   args: {
     name: 'Jonas Jones',
     phoneNumber: '+36 01 234 5678',
-  },
+    onDeleteContact: fn(),
+  } as unknown as ContactListItemProps,
 };

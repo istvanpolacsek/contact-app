@@ -9,31 +9,24 @@ import Button from '../button/Button';
 import ProfileActions from '../profile-action/ProfileActions';
 import { type Contact } from '@contact-app/types';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from '../../hooks';
 
-export interface ContactListPageHeaderProps extends Contact {
-  title: string;
-  addNewTitle: string;
-}
-
-const ContactListPageHeader: FC<ContactListPageHeaderProps> = ({
-  title,
-  addNewTitle,
-  ...rest
-}) => {
+const ContactListPageHeader: FC<Contact> = (props) => {
   const { push } = useRouter();
+  const t = useTranslations();
 
   const handleAddNewClick = () => push(`?d=contact`);
 
   return (
     <ContactListPageHeaderStyled>
-      <Headline>{title}</Headline>
+      <Headline>{t['appTitle']}</Headline>
       <ContactListPageHeaderActionsStyled>
         <ContactListPageHeaderSecondaryActionsStyled>
-          <Button variant="secondary" icon="settings" />
-          <ProfileActions {...rest} />
+          <Button variant="secondary" icon="settings" title={t['settings']} />
+          <ProfileActions {...props} />
         </ContactListPageHeaderSecondaryActionsStyled>
         <Button variant="special" icon="add" onClick={handleAddNewClick}>
-          {addNewTitle}
+          {t['addNewTitle']}
         </Button>
       </ContactListPageHeaderActionsStyled>
     </ContactListPageHeaderStyled>

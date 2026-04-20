@@ -55,8 +55,8 @@ export const ContactDialogPhotoActionsStyled = styled.div(
 
 export const ContactDialogPhotoWrapperStyled = styled.div(
   () => css`
-    max-width: 5.5rem;
-    max-height: 5.5rem;
+    width: 5.5rem;
+    height: 5.5rem;
     border-radius: 100%;
     overflow: hidden;
   `,

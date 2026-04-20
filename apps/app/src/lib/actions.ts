@@ -2,13 +2,10 @@
 
 import { db } from './db/client';
 import { contacts } from './db/schema';
-import {
-  type ApiResponse,
-  type Contact,
-  type ContactInput,
-} from '@contact-app/types';
+import { type ApiResponse, type Contact, type ContactInput } from '@contact-app/types';
 import { eq, or, desc, isNull, asc } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
+import { uploadPhotoToS3 } from './s3';
 
 // READ operations
 export async function fetchAllContacts(): Promise<Contact[]> {
@@ -41,20 +38,8 @@ export async function fetchDefaultContact(): Promise<Contact | null> {
   }
 }
 
-export async function fetchContactById(id: number): Promise<Contact | null> {
-  try {
-    const result = await db.select().from(contacts).where(eq(contacts.id, id));
-    return result.length > 0 ? (result[0] as Contact) : null;
-  } catch (error) {
-    console.error(`Failed to fetch contact ${id}:`, error);
-    return null;
-  }
-}
-
 // CREATE operation
-export async function createContact(
-  contactData: ContactInput,
-): Promise<ApiResponse<Contact>> {
+export async function createContact(contactData: ContactInput): Promise<ApiResponse<Contact>> {
   try {
     const result = await db
       .insert(contacts)
@@ -70,8 +55,7 @@ export async function createContact(
     revalidatePath('/');
     return { success: true, data: result[0] as Contact };
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'Failed to create contact';
+    const message = error instanceof Error ? error.message : 'Failed to create contact';
     console.error('Create contact error:', error);
     return { success: false, error: message };
   }
@@ -103,8 +87,7 @@ export async function updateContact(
     revalidatePath('/');
     return { success: true, data: result[0] as Contact };
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'Failed to update contact';
+    const message = error instanceof Error ? error.message : 'Failed to update contact';
     console.error('Update contact error:', error);
     return { success: false, error: message };
   }
@@ -129,9 +112,23 @@ export async function deleteContact(id: number): Promise<{
     revalidatePath('/');
     return { success: true, data: { id: result[0].id, deleted: true } };
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : 'Failed to delete contact';
+    const message = error instanceof Error ? error.message : 'Failed to delete contact';
     console.error('Delete contact error:', error);
+    return { success: false, error: message };
+  }
+}
+
+// UPLOAD operation
+export async function uploadContactPhoto(
+  buffer: Buffer,
+): Promise<ApiResponse<{ photoSlug: string }>> {
+  try {
+    const photoSlug = await uploadPhotoToS3(buffer);
+
+    return { success: true, data: { photoSlug } };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to upload photo';
+    console.error('Upload photo error:', error);
     return { success: false, error: message };
   }
 }

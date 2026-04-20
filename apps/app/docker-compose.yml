@@ -5,19 +5,78 @@ services:
     image: postgres:15
     user: root
     ports:
-      - '5432:5432'
+      - '${DB_PPORT}:5432'
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_POSTGRES_PASSWORD: postgres
-      HOSTNAME: localhost
-      TZ: Europe/Budapest
-      POSTGRES_USER: contact
-      POSTGRES_DB: contact
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_DATABASE}
+      HOSTNAME: ${DB_HOSTNAME}
+      TZ: ${DB_TZ}
       PGDATA: /var/lib/postgresql/data
     volumes:
       - ./db:/var/lib/postgresql/data
     networks:
       - contact-app
+
+  minio:
+    container_name: minio-contact
+    image: minio/minio:latest
+    ports:
+      - '${MINIO_API_PORT}:9000'
+      - '${MINIO_CONSOLE_PORT}:9001'
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY}
+    volumes:
+      - ./minio/data:/data
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        minio server /data --console-address :9001 &
+        sleep 5 &&
+        mc alias set local http://localhost:9000 ${S3_ACCESS_KEY} ${S3_SECRET_KEY} --api S3v4 &&
+        mc mb local/${S3_BUCKET} --ignore-existing &&
+        mc anonymous set download local/${S3_BUCKET} &&
+        echo 'MinIO bucket initialized' &&
+        wait
+    networks:
+      - contact-app
+    depends_on:
+      - postgres
+
+  nextjs-app:
+    container_name: nextjs-contact
+    build:
+      context: ../..
+      dockerfile: ./apps/app/Dockerfile
+      args:
+        NEXT_PUBLIC_S3_ENDPOINT_PUBLIC: ${S3_ENDPOINT_PUBLIC}
+        NEXT_PUBLIC_S3_BUCKET: ${S3_BUCKET}
+    ports:
+      - '3000:3000'
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOSTNAME: postgres
+      DB_USER: ${DB_USER}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_TZ: ${DB_TZ}
+      S3_ENDPOINT: http://minio:9000
+      S3_ENDPOINT_PUBLIC: http://localhost:9000
+      S3_REGION: ${S3_REGION}
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY}
+      S3_SECRET_KEY: ${S3_SECRET_KEY}
+      S3_BUCKET: ${S3_BUCKET}
+      NEXT_PUBLIC_S3_ENDPOINT_PUBLIC: http://localhost:9000
+      NEXT_PUBLIC_S3_BUCKET: ${S3_BUCKET}
+      NODE_ENV: production
+    networks:
+      - contact-app
+    depends_on:
+      postgres:
+        condition: service_started
+      minio:
+        condition: service_started
 
 networks:
   contact-app:

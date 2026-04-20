@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { motion } from 'motion/react';
-import { addTransparency } from '@contact-app/theme';
+import { addStylesForBreakpoints, addTransparency } from '@contact-app/theme';
 
 export const ContactListItemStyled = styled(motion.li)(
   ({ theme }) => css`
@@ -12,6 +12,17 @@ export const ContactListItemStyled = styled(motion.li)(
     column-gap: 1rem;
     font-family: ${theme.typography.fontFamilies.lexendDeca};
     font-weight: 400;
+    white-space: nowrap;
+
+    ${addStylesForBreakpoints(
+      css`
+        grid-template-columns: minmax(0, 2.5rem) minmax(0, 1fr);
+        grid-template-rows: repeat(3, minmax(0, min-content));
+        row-gap: 0.5rem;
+      `,
+      'sm',
+      'xs',
+    )}
   `,
 );
 
@@ -22,6 +33,14 @@ export const ContactListItemImageStyled = styled.span(
     aspect-ratio: 1 / 1;
     overflow: hidden;
     grid-row: span 2;
+
+    ${addStylesForBreakpoints(
+      css`
+        grid-row: span 3;
+      `,
+      'sm',
+      'xs',
+    )}
   `,
 );
 
@@ -46,5 +65,28 @@ export const ContactListItemActionsStyled = styled(motion.span)(
     @media (pointer: coarse) {
       opacity: 1 !important;
     }
+
+    ${addStylesForBreakpoints(
+      css`
+        grid-row-start: 3;
+        grid-column: span 2;
+      `,
+      'sm',
+      'xs',
+    )}
+
+    ${addStylesForBreakpoints(
+      css`
+        justify-content: end;
+      `,
+      'sm',
+    )}
+    
+    ${addStylesForBreakpoints(
+      css`
+        justify-content: space-between;
+      `,
+      'xs',
+    )}
   `,
 );

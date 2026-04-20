@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { addStylesForBreakpoints } from '@contact-app/theme';
 
 export const ContactListSectionStyled = styled.section(
   () => css`
@@ -9,6 +10,16 @@ export const ContactListSectionStyled = styled.section(
     grid-template-columns: minmax(0, 1fr) 48rem minmax(0, 1fr);
     grid-template-rows: repeat(2, 6rem) minmax(0, 1fr);
     gap: 1px;
+
+    ${addStylesForBreakpoints(
+      css`
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, min-content)) minmax(0, 1fr);
+      `,
+      'md',
+      'sm',
+      'xs',
+    )}
   `,
 );
 
@@ -42,6 +53,20 @@ export const ContactListPageHeaderStyled = styled.div(
       bottom: 0;
       left: calc(50% - 100vw / 2);
     }
+
+    ${addStylesForBreakpoints(
+      css`
+        grid-column-start: unset;
+        grid-column: span 2;
+        grid-template-columns: 1fr;
+        row-gap: 0.5rem;
+        height: auto;
+        padding-block: 1rem;
+      `,
+      'md',
+      'sm',
+      'xs',
+    )}
   `,
 );
 
@@ -76,6 +101,24 @@ export const ContactListUlStyled = styled.ul(
     &::after {
       right: 0;
     }
+
+    ${addStylesForBreakpoints(
+      css`
+        grid-column-start: unset;
+        grid-column: span 2;
+        grid-auto-rows: unset;
+        align-content: start;
+        row-gap: 1rem;
+
+        &::before,
+        &::after {
+          content: unset;
+        }
+      `,
+      'md',
+      'sm',
+      'xs',
+    )}
   `,
 );
 
@@ -85,6 +128,15 @@ export const ContactListPageHeaderActionsStyled = styled.div(
     white-space: nowrap;
     column-gap: 1.5rem;
     align-items: center;
+
+    ${addStylesForBreakpoints(
+      css`
+        justify-content: space-between;
+      `,
+      'md',
+      'sm',
+      'xs',
+    )}
   `,
 );
 
@@ -95,17 +147,30 @@ export const ContactListPageHeaderSecondaryActionsStyled = styled.div(
   `,
 );
 
+type ActionPosition = 'start' | 'center' | 'end';
+
 interface ContactListSectionActionStyledProps {
-  $align?: 'start' | 'center' | 'end';
-  $justify?: 'start' | 'center' | 'end';
+  $align?: ActionPosition;
+  $justify?: ActionPosition;
+  $justifyMobile?: ActionPosition;
 }
 
-export const ContactListSectionActionStyled =
-  styled.div<ContactListSectionActionStyledProps>(
-    ({ $justify = 'center', $align = 'center' }) => css`
-      justify-self: ${$justify};
-      align-self: ${$align};
-      grid-row-start: 2;
-      padding-inline: 1.5rem;
-    `,
-  );
+export const ContactListSectionActionStyled = styled.div<ContactListSectionActionStyledProps>(
+  ({ $justify = 'center', $align = 'center', $justifyMobile = 'center' }) => css`
+    justify-self: ${$justify};
+    align-self: ${$align};
+    grid-row-start: 2;
+    padding-inline: 1.5rem;
+
+    ${addStylesForBreakpoints(
+      css`
+        grid-row-start: 1;
+        padding-block: 0.5rem;
+        justify-self: ${$justifyMobile};
+      `,
+      'md',
+      'sm',
+      'xs',
+    )}
+  `,
+);

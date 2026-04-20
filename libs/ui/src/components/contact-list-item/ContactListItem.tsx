@@ -49,17 +49,14 @@ const ContactListItem: FC<ContactListItemProps> = ({
       </ContactListItemImageStyled>
       <Headline level={3}>{name}</Headline>
       {phoneNumber && (
-        <ContactListItemPhoneStyled
-          href={`tel:${phoneNumber}`}
-          aria-label={`Call ${name}`}
-        >
+        <ContactListItemPhoneStyled href={`tel:${phoneNumber}`} aria-label={`Call ${name}`}>
           {phoneNumber}
         </ContactListItemPhoneStyled>
       )}
       <ContactListItemActionsStyled variants={actionsVariants}>
         <Button icon="mute" variant="secondary" />
         <Button icon="call" variant="secondary" />
-        <Popover actions={popoverActions} placement="bottom-left" />
+        <Popover actions={popoverActions} placement="bottom-right" />
       </ContactListItemActionsStyled>
     </ContactListItemStyled>
   );
